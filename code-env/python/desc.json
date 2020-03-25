@@ -1,0 +1,6 @@
+{
+  "acceptedPythonInterpreters": ["PYTHON3.6", "PYTHON3.7"],
+  "forceConda": false,
+  "installCorePackages": true,
+  "installJupyterSupport": false
+}
