@@ -1,0 +1,33 @@
+/* This file is the descriptor for the parameter set meaningcloud-connection */
+{
+    "meta" : {
+        // label: name of the parameter set as displayed, should be short
+        "label": "MeaningCloud connection",        
+        "description": "MeaningCloud connection settings",        
+        "icon": "icon-link"
+    },
+
+    "defaultDefinableInline": true,
+    "defaultDefinableAtProjectLevel": false,
+
+    "pluginParams": [
+        {
+            "name": "license_key",
+            "label": "MeaningCloud license key",
+            "description": 'MeaningCloud license key. Find it in the subscription section.',
+            "type": "STRING",
+            "mandatory": true
+        },
+        {
+            "name": "meaningcloud_server",
+            "label": "MeaningCloud server",
+            "type": "STRING",
+            "defaultValue": "https://api.meaningcloud.com/",
+            "description": "MeaningCloud server to which API requests are sent.",
+            "mandatory": true
+        }
+    ],
+
+    "params": [
+    ]
+}
