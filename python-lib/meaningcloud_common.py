@@ -12,5 +12,5 @@ def insertInList(list_to_use, value):
 
 
 def setRequestSource(request):
-    version = "1.0.0"
+    version = "1.0.1"
     request.addParam("src", "dataiku-" + version)
