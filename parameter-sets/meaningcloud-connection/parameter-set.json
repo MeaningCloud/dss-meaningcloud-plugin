@@ -1,21 +1,23 @@
-/* This file is the descriptor for the parameter set meaningcloud-connection */
 {
-    "meta" : {
-        // label: name of the parameter set as displayed, should be short
-        "label": "MeaningCloud connection",        
-        "description": "MeaningCloud connection settings",        
+    "meta": {
+        "label": "API configuration",
+        "description": "Define presets for users to call the API with specific credentials",
         "icon": "icon-link"
     },
-
-    "defaultDefinableInline": true,
-    "defaultDefinableAtProjectLevel": false,
-
+    "defaultDefinableInline": false,
+    "defaultDefinableAtProjectLevel": true,
     "pluginParams": [
+        {
+            "name": "separator_authentification",
+            "label": "Authentification",
+            "type": "SEPARATOR",
+            "description": "Please refer to the MeaningCloud documentation: https://www.meaningcloud.com/developer/getting-started"
+        },
         {
             "name": "license_key",
             "label": "MeaningCloud license key",
-            "description": 'MeaningCloud license key. Find it in the subscription section.',
-            "type": "STRING",
+            "description": "MeaningCloud license key. Find it on your developer account subscription page.",
+            "type": "PASSWORD",
             "mandatory": true
         },
         {
@@ -27,7 +29,5 @@
             "mandatory": true
         }
     ],
-
-    "params": [
-    ]
+    "params": []
 }

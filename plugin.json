@@ -1,12 +1,17 @@
-{   
+{
     "id": "meaningcloud",
     "version": "1.0.0",
     "meta": {
         "label": "MeaningCloud",
-        "description": "Connector to use MeaningCloud's Text Analytics APIs.",
-        "author": "MeaningCloud Support",
+        "category": "Natural Language Processing",
+        "description": "Use MeaningCloud APIs to perform Language Detection, Sentiment Analysis, Topic Extraction, Text Summarization and Deep Categorization",
+        "author": "MeaningCloud",
         "icon": "icon-cloud",
-        "tags": ["NLP", "MeaningCloud", "Text Analytics", "Connector"],
+        "tags": [
+            "NLP",
+            "MeaningCloud",
+            "Cloud"
+        ],
         "url": "https://www.meaningcloud.com/developer/dataiku-plugin",
         "licenseInfo": "Apache Software License"
     }

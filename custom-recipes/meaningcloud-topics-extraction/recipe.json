@@ -1,103 +1,168 @@
-// This file is the descriptor for the Custom code recipe meaningcloud-topics-extraction
-// This file is the descriptor for the Custom code recipe meaningcloud-deep-categorization
-{    
-    "meta": {        
-        "label": "Topics Extraction",        
-        "description": "Extract named entities, keywords (concepts) and more using MeaningCloud's Topics Extraction API.",
+{
+    "meta": {
+        "label": "Topic Extraction",
+        "displayOrderRank": 3,
+        "description": "Extract Named Entities (people, organizations, etc.), concepts, money expressions and quantities from a text",
         "icon": "icon-tags",
         "iconColor": "orange"
     },
-
     "kind": "PYTHON",
-    
     "inputRoles": [
         {
             "name": "input_dataset",
             "label": "Input dataset",
-            "description": "Dataset with a natural language column to analyze.",
+            "description": "Dataset with a natural language column to analyze",
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
-        }        
+        }
     ],
-
     "outputRoles": [
         {
             "name": "output_dataset",
             "label": "Output dataset",
-            "description": "Dataset with the additional NLP analyses.",
+            "description": "Dataset with the additional NLP analyses",
             "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
     ],
-
     "params": [
         {
-            "name": "separator_1",
-            "label": "Credentials",
-            "type": "SEPARATOR"
-        },
-        {
-            "type": "PRESET",
-            "name": "meaningcloud_connection",
-            "label": "MeaningCloud connection",
-            "description": "Credentials to call the MeaningCloud APIs.",
-            "parameterSetId" : "meaningcloud-connection",
-            "mandatory" : true
-        },
-                 {
-            "name": "separator_2",
-            "label": "Analysis",
+            "name": "separator_input",
+            "label": "Input Parameters",
             "type": "SEPARATOR"
         },
         {
             "name": "column_name",
-            "label": "Column name",
+            "label": "Text column",
             "type": "COLUMN",
-            "description": "Column with the text to analyze.",
             "mandatory": true,
-            "columnRole": "input_dataset"
-        },        
+            "columnRole": "input_dataset",
+            "allowedColumnTypes": [
+                "string"
+            ]
+        },
         {
             "name": "language",
             "label": "Language",
-            "description": "Language of the text to analyze.",
-            "type": "SELECT",            
+            "description": "List of supported languages",
+            "type": "SELECT",
             "selectChoices": [
-                {"value": "ar", "label": "Arabic"},
-                {"value": "ca","label": "Catalan"},
-                {"value": "zh","label": "Chinese"},
-                {"value": "da","label": "Danish"},
-                {"value": "en", "label": "English"},
-                {"value": "fi","label": "Finnish"},
-                {"value": "fr", "label": "French"},
-                {"value": "it", "label": "Italian"},
-                {"value": "no","label": "Norwegian"},
-                {"value": "pt","label": "Portuguese"},
-                {"value": "ru", "label": "Russian"},
-                {"value": "es", "label": "Spanish"},                                
-                {"value": "sw","label": "Swedish"}
+                {
+                    "value": "ar",
+                    "label": "Arabic"
+                },
+                {
+                    "value": "ca",
+                    "label": "Catalan"
+                },
+                {
+                    "value": "zh",
+                    "label": "Chinese"
+                },
+                {
+                    "value": "da",
+                    "label": "Danish"
+                },
+                {
+                    "value": "en",
+                    "label": "English"
+                },
+                {
+                    "value": "fi",
+                    "label": "Finnish"
+                },
+                {
+                    "value": "fr",
+                    "label": "French"
+                },
+                {
+                    "value": "it",
+                    "label": "Italian"
+                },
+                {
+                    "value": "no",
+                    "label": "Norwegian"
+                },
+                {
+                    "value": "pt",
+                    "label": "Portuguese"
+                },
+                {
+                    "value": "ru",
+                    "label": "Russian"
+                },
+                {
+                    "value": "es",
+                    "label": "Spanish"
+                },
+                {
+                    "value": "sw",
+                    "label": "Swedish"
+                }
             ],
             "defaultValue": "en"
         },
         {
+            "name": "separator_configuration",
+            "label": "Configuration",
+            "type": "SEPARATOR"
+        },
+        {
             "name": "topics",
             "label": "Topics",
-            "description": "Types of topics to extract.",
+            "description": "Types of topics to extract",
             "type": "MULTISELECT",
             "mandatory": true,
             "selectChoices": [
-                {"value": "e", "label": "Entities"},
-                {"value": "c", "label": "Concepts"},
-                {"value": "m", "label": "Money expressions"},
-                {"value": "n", "label": "Quantities"}
+                {
+                    "value": "e",
+                    "label": "Entities"
+                },
+                {
+                    "value": "c",
+                    "label": "Concepts"
+                },
+                {
+                    "value": "m",
+                    "label": "Money expressions"
+                },
+                {
+                    "value": "n",
+                    "label": "Quantities"
+                }
+            ],
+            "defaultValue": [
+                "e",
+                "c",
+                "m",
+                "n"
             ]
+        },
+        {
+            "type": "PRESET",
+            "name": "meaningcloud_connection",
+            "label": "API configuration preset",
+            "parameterSetId": "meaningcloud-connection",
+            "mandatory": true
+        },
+        {
+            "name": "separator_advanced",
+            "label": "Advanced",
+            "type": "SEPARATOR"
+        },
+        {
+            "name": "expert",
+            "label": "Expert mode",
+            "type": "BOOLEAN",
+            "defaultValue": false
         },
         {
             "name": "relevance_threshold",
             "label": "Relevance threshold",
-            "description": "Relevance threshold for topics extracted.",
+            "description": "Relevance threshold for topics extracted",
+            "visibilityCondition": "model.expert == true",
             "type": "INT",
             "defaultValue": 100,
             "minI": 1,
@@ -106,10 +171,10 @@
         {
             "name": "user_dictionary",
             "label": "User dictionary",
-            "description": "User-defined dictionary to use in the analysis.",
+            "description": "User-defined dictionary to use in the analysis",
+            "visibilityCondition": "model.expert == true",
             "type": "STRING"
         }
     ],
-
     "resourceKeys": []
 }

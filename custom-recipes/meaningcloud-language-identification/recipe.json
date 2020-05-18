@@ -1,71 +1,59 @@
-// This file is the descriptor for the Custom code recipe meaningcloud-language-identification
 {
-    
     "meta": {
-    
-        "label": "Language Identification",    
-        "description": "Identify the language of a text by name or ISO6391 code using MeaningCloud's Language Identification API.",
+        "label": "Language Detection",
+        "displayOrderRank": 1,
+        "description": "Detect the dominant language of a text (language name and ISO 639 code)",
         "icon": "icon-comment",
         "iconColor": "orange"
     },
-
     "kind": "PYTHON",
-    
     "inputRoles": [
         {
             "name": "input_dataset",
             "label": "Input dataset",
-            "description": "Dataset with a natural language column to analyze.",
+            "description": "Dataset with a natural language column to analyze",
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
-        }        
+        }
     ],
-
     "outputRoles": [
         {
             "name": "output_dataset",
             "label": "Output dataset",
-            "description": "Dataset with the additional NLP analyses.",
+            "description": "Dataset with the additional NLP analyses",
             "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
     ],
-
     "params": [
         {
-            "name": "separator_1",
-            "label": "Credentials",
+            "name": "separator_input",
+            "label": "Input Parameters",
+            "type": "SEPARATOR"
+        },
+        {
+            "name": "column_name",
+            "label": "Text column",
+            "type": "COLUMN",
+            "mandatory": true,
+            "columnRole": "input_dataset",
+            "allowedColumnTypes": [
+                "string"
+            ]
+        },
+        {
+            "name": "separator_configuration",
+            "label": "Configuration",
             "type": "SEPARATOR"
         },
         {
             "type": "PRESET",
             "name": "meaningcloud_connection",
-            "label": "MeaningCloud connection",
-            "description": "Credentials to call the MeaningCloud APIs.",
-            "parameterSetId" : "meaningcloud-connection",
-            "mandatory" : true
-        },
-                 {
-            "name": "separator_2",
-            "label": "Analysis",
-            "type": "SEPARATOR"
-        },
-        {
-            "name": "column_name",
-            "label": "Column name",
-            "type": "COLUMN",
-            "description": "Column with the text to analyze.",
-            "mandatory": true,
-            "columnRole": "input_dataset"
-        },
-        {
-            "name": "get_lang_name",
-            "label": "Get language name",
-            "type": "BOOLEAN",
-            "description": "Enable to obtain the language name instead of its ISO6391 code.",
-            "defaultValue": false
+            "label": "API configuration preset",
+            "parameterSetId": "meaningcloud-connection",
+            "mandatory": true
         }
     ],
     "resourceKeys": []

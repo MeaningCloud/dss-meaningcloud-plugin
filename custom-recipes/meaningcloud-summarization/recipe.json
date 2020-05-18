@@ -1,71 +1,67 @@
-// This file is the descriptor for the Custom code recipe meaningcloud-summarization
 {
     "meta": {
-        "label": "Summarization",
-        "description": "Extract a summary of a text using MeaningCloud's Summarization API.",
+        "label": "Text Summarization",
+        "displayOrderRank": 4,
+        "description": "Summarize a text according to a specified number of sentences",
         "icon": "icon-tint",
         "iconColor": "orange"
     },
-
     "kind": "PYTHON",
-    
     "inputRoles": [
         {
             "name": "input_dataset",
             "label": "Input dataset",
-            "description": "Dataset with a natural language column to analyze.",
+            "description": "Dataset with a natural language column to analyze",
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
-        }        
+        }
     ],
-
     "outputRoles": [
         {
             "name": "output_dataset",
             "label": "Output dataset",
-            "description": "Dataset with the additional NLP analyses.",
+            "description": "Dataset with the additional NLP analyses",
             "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
     ],
-
     "params": [
-         {
-            "name": "separator_1",
-            "label": "Credentials",
-            "type": "SEPARATOR"
-         },
-         {
-            "type": "PRESET",
-            "name": "meaningcloud_connection",
-            "label": "MeaningCloud connection",
-            "description": "Credentials to call the MeaningCloud APIs.",
-            "parameterSetId" : "meaningcloud-connection",
-            "mandatory" : true
-        },
         {
-            "name": "separator_2",
-            "label": "Analysis",
+            "name": "separator_input",
+            "label": "Input Parameters",
             "type": "SEPARATOR"
         },
         {
             "name": "column_name",
-            "label": "Column name",
+            "label": "Text column",
             "type": "COLUMN",
-            "description": "Column with the text to analyze.",
             "mandatory": true,
-            "columnRole": "input_dataset"
+            "columnRole": "input_dataset",
+            "allowedColumnTypes": [
+                "string"
+            ]
+        },
+        {
+            "name": "separator_configuration",
+            "label": "Configuration",
+            "type": "SEPARATOR"
         },
         {
             "name": "sentences",
             "label": "Number of sentences",
-            "description": "Number of sentences in the summary.",
             "type": "INT",
             "defaultValue": 5,
             "minI": 0,
             "maxI": 100
+        },
+        {
+            "type": "PRESET",
+            "name": "meaningcloud_connection",
+            "label": "API configuration preset",
+            "parameterSetId": "meaningcloud-connection",
+            "mandatory": true
         }
     ],
     "resourceKeys": []

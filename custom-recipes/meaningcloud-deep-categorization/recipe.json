@@ -1,119 +1,157 @@
-// This file is the descriptor for the Custom code recipe meaningcloud-deep-categorization
-{    
-    "meta": {        
-        "label": "Deep Categorization",        
-        "description": "Classify a text according to the chosen model using MeaningCloud's Deep Categorization API.",
+{
+    "meta": {
+        "label": "Deep Categorization",
+        "displayOrderRank": 5,
+        "description": "Assign one or more categories to a text using advanced rule-based language models",
         "icon": "icon-folder-open",
         "iconColor": "orange"
     },
-
     "kind": "PYTHON",
-    
     "inputRoles": [
         {
             "name": "input_dataset",
             "label": "Input dataset",
-            "description": "Dataset with a natural language column to analyze.",
+            "description": "Dataset with a natural language column to analyze",
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
-        }        
+        }
     ],
-
     "outputRoles": [
         {
             "name": "output_dataset",
             "label": "Output dataset",
-            "description": "Dataset with the additional NLP analyses.",
+            "description": "Dataset with the additional NLP analyses",
             "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
     ],
-
     "params": [
         {
-            "name": "separator_1",
-            "label": "Credentials",
-            "type": "SEPARATOR"
-        },
-        {
-            "type": "PRESET",
-            "name": "meaningcloud_connection",
-            "label": "MeaningCloud connection",
-            "description": "Credentials to call the MeaningCloud APIs.",
-            "parameterSetId" : "meaningcloud-connection",
-            "mandatory" : true
-        },
-                 {
-            "name": "separator_2",
-            "label": "Analysis",
+            "name": "separator_input",
+            "label": "Input Parameters",
             "type": "SEPARATOR"
         },
         {
             "name": "column_name",
-            "label": "Column name",
+            "label": "Text column",
             "type": "COLUMN",
-            "description": "Column with the text to analyze.",
             "mandatory": true,
-            "columnRole": "input_dataset"
-        },        
-        {
-            "name": "predefined_model",
-            "label": "Use predefined model",
-            "type": "BOOLEAN",
-            "description": "Disable to classify with a user-defined model.",
-            "defaultValue": true
+            "columnRole": "input_dataset",
+            "allowedColumnTypes": [
+                "string"
+            ]
         },
         {
             "name": "language",
             "label": "Language",
-            "description": "Language of the text to analyze.",
+            "description": "List of supported languages for predefined models",
             "type": "SELECT",
-            "visibilityCondition" : "model.predefined_model == true",
             "selectChoices": [
-                {"value": "en", "label": "English"},
-                {"value": "es", "label": "Spanish"}
+                {
+                    "value": "en",
+                    "label": "English"
+                },
+                {
+                    "value": "es",
+                    "label": "Spanish"
+                }
             ],
             "defaultValue": "en"
         },
         {
-            "name": "model",
-            "label": "Model",
-            "description": "Model to use in the classification.",
-            "type": "SELECT",
-            "visibilityCondition" : "model.predefined_model == true",
-            "selectChoices": [
-                {"value": "Emotion", "label": "Emotion Recognition"},
-                {"value": "IAB_2.0", "label": "IAB 2.0"},
-                {"value": "IntentionAnalysis", "label": "Intention Analysis"},                
-                {"value": "VoC-Banking", "label": "VoC - Banking"},
-                {"value": "VoC-Generic", "label": "VoC - Generic"},
-                {"value": "VoC-Insurance", "label": "VoC - Insurance"},
-                {"value": "VoC-Retail", "label": "VoC - Retail"},
-                {"value": "VoC-Telco", "label": "VoC - Telco"},
-                {"value": "VoE-ExitInterview", "label": "VoE - Exit Interview"},
-                {"value": "VoE-Organization", "label": "VoE - Organization"},
-                {"value": "VoE-Performance", "label": "VoE - Performance"}
-            ]
+            "name": "separator_configuration",
+            "label": "Configuration",
+            "type": "SEPARATOR"
         },
         {
-            "name": "user_model",
-            "label": "User model",
-            "description": "User-defined model to use in the classification.",
-            "type": "STRING",
-            "visibilityCondition" : "model.predefined_model == false"
+            "name": "model",
+            "label": "Predefined model",
+            "type": "SELECT",
+            "selectChoices": [
+                {
+                    "value": "IAB_2.0",
+                    "label": "IAB 2.0"
+                },
+                {
+                    "value": "Emotion",
+                    "label": "Emotion Recognition"
+                },
+                {
+                    "value": "IntentionAnalysis",
+                    "label": "Intention Analysis"
+                },
+                {
+                    "value": "VoC-Banking",
+                    "label": "Voice of the Customer - Banking"
+                },
+                {
+                    "value": "VoC-Generic",
+                    "label": "Voice of the Customer - Generic"
+                },
+                {
+                    "value": "VoC-Insurance",
+                    "label": "Voice of the Customer - Insurance"
+                },
+                {
+                    "value": "VoC-Retail",
+                    "label": "Voice of the Customer - Retail"
+                },
+                {
+                    "value": "VoC-Telco",
+                    "label": "Voice of the Customer - Telco"
+                },
+                {
+                    "value": "VoE-ExitInterview",
+                    "label": "Voice of the Employee - Exit Interview"
+                },
+                {
+                    "value": "VoE-Organization",
+                    "label": "Voice of the Employee  - Organization"
+                },
+                {
+                    "value": "VoE-Performance",
+                    "label": "Voice of the Employee  - Performance"
+                }
+            ],
+            "defaultValue": "IAB_2.0"
+        },
+        {
+            "type": "PRESET",
+            "name": "meaningcloud_connection",
+            "label": "API configuration preset",
+            "parameterSetId": "meaningcloud-connection",
+            "mandatory": true
+        },
+        {
+            "name": "separator_advanced",
+            "label": "Advanced",
+            "type": "SEPARATOR"
+        },
+        {
+            "name": "expert",
+            "label": "Expert mode",
+            "type": "BOOLEAN",
+            "defaultValue": false
         },
         {
             "name": "categories",
             "label": "Number of categories",
-            "description": "Number of categories to obtain.",
+            "description": "Number of categories to obtain",
             "type": "INT",
             "defaultValue": 1,
             "minI": 1,
-            "maxI": 10
+            "maxI": 10,
+            "visibilityCondition": "model.expert == true"
+        },
+        {
+            "name": "user_model",
+            "label": "User model",
+            "description": "User-defined model ID to use in the classification",
+            "type": "STRING",
+            "visibilityCondition": "model.expert == true"
         }
     ],
-
     "resourceKeys": []
 }

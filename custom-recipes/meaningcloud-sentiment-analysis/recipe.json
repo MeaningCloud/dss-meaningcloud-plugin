@@ -1,14 +1,12 @@
-// This file is the descriptor for the Custom code recipe meaningcloud-sentiment-analysis
 {
     "meta": {
-        "label": "Sentiment analysis",
-        "description": "Analyze the sentiment expressed in a text using MeaningCloud's Sentiment Analysis API.",
+        "label": "Sentiment Analysis",
+        "displayOrderRank": 2,
+        "description": "Analyze the sentiment polarity, subjectivity, irony and emotional agreement of a text",
         "icon": "icon-heart",
         "iconColor": "orange"
     },
-
     "kind": "PYTHON",
-
     "inputRoles": [
         {
             "name": "input_dataset",
@@ -17,67 +15,95 @@
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
-        }        
+        }
     ],
-
     "outputRoles": [
         {
             "name": "output_dataset",
             "label": "Output dataset",
-            "description": "Dataset with the additional NLP analyses.",
+            "description": "Dataset with the additional NLP analyses",
             "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
     ],
-
     "params": [
-         {
-            "name": "separator_1",
-            "label": "Credentials",
-            "type": "SEPARATOR"
-         },
-         {
-            "type": "PRESET",
-            "name": "meaningcloud_connection",
-            "label": "MeaningCloud connection",
-            "description": "Credentials to call the MeaningCloud APIs.",
-            "parameterSetId" : "meaningcloud-connection",
-            "mandatory" : true
-        },
-                 {
-            "name": "separator_2",
-            "label": "Analysis",
+        {
+            "name": "separator_input",
+            "label": "Input Parameters",
             "type": "SEPARATOR"
         },
         {
             "name": "column_name",
-            "label": "Column name",
+            "label": "Text column",
             "type": "COLUMN",
-            "description": "Column with the text to analyze.",
             "mandatory": true,
-            "columnRole": "input_dataset"
+            "columnRole": "input_dataset",
+            "allowedColumnTypes": [
+                "string"
+            ]
         },
         {
             "name": "language",
             "label": "Language",
-            "description": "Language of the text to analyze.",
+            "description": "List of supported languages",
             "type": "SELECT",
             "selectChoices": [
-                {"value": "ca","label": "Catalan"},
-                {"value": "da","label": "Danish"},
-                {"value": "en", "label": "English"},
-                {"value": "fi","label": "Finnish"},
-                {"value": "fr", "label": "French"},
-                {"value": "it", "label": "Italian"},
-                {"value": "no","label": "Norwegian"},
-                {"value": "pt","label": "Portuguese"},
-                {"value": "es", "label": "Spanish"},
-                {"value": "sw","label": "Swedish"}
+                {
+                    "value": "ca",
+                    "label": "Catalan"
+                },
+                {
+                    "value": "da",
+                    "label": "Danish"
+                },
+                {
+                    "value": "en",
+                    "label": "English"
+                },
+                {
+                    "value": "fi",
+                    "label": "Finnish"
+                },
+                {
+                    "value": "fr",
+                    "label": "French"
+                },
+                {
+                    "value": "it",
+                    "label": "Italian"
+                },
+                {
+                    "value": "no",
+                    "label": "Norwegian"
+                },
+                {
+                    "value": "pt",
+                    "label": "Portuguese"
+                },
+                {
+                    "value": "es",
+                    "label": "Spanish"
+                },
+                {
+                    "value": "sw",
+                    "label": "Swedish"
+                }
             ],
-            "defaultValue": 'en'
+            "defaultValue": "en"
+        },
+        {
+            "name": "separator_configuration",
+            "label": "Configuration",
+            "type": "SEPARATOR"
+        },
+        {
+            "type": "PRESET",
+            "name": "meaningcloud_connection",
+            "label": "API configuration preset",
+            "parameterSetId": "meaningcloud-connection",
+            "mandatory": true
         }
     ],
-
     "resourceKeys": []
 }
